@@ -30,6 +30,7 @@
 #    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 PROG="run-one"
+EX_TEMPFAIL=75
 
 if [ $# -eq 0 ]; then
 	echo "ERROR: no arguments specified" 1>&2
@@ -63,7 +64,7 @@ base="$(basename $0)"
 case "$base" in
 	run-one)
 		# Run the specified command, assuming we can flock this command string's hash
-		flock -xn "$FLAG" "$@"
+		flock -xnE${EX_TEMPFAIL} "$FLAG" "$@"
 	;;
 	run-this-one)
 		ps="$CMD"
